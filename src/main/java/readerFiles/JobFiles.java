@@ -1,3 +1,4 @@
+package readerFiles;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,13 +12,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class ReadFileAndSorted {
-    public static void main(String[] args) {
+public class JobFiles implements FileManager {
+
+    private String folder;
+
+    public JobFiles(String folder){
+        this.folder = folder;
+    }
+
+    @Override
+    public void sortingAndWritingToANewFile(){
         Set<Path> set = new TreeSet<>();
 
         // считываю название всех фалов из корневой папки folder и всех подпапок.
         try {
-            Files.walk(Paths.get("folder"))
+            Files.walk(Paths.get(folder))
                     .filter(Files::isRegularFile)
                     .forEach(set::add);
         } catch (IOException e) {
@@ -52,4 +61,5 @@ public class ReadFileAndSorted {
             e.printStackTrace();
         }
     }
+
 }
